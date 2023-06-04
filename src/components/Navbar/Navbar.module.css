@@ -1,0 +1,18 @@
+
+@import '../../index.css';
+.navbar{
+    width: 100%;
+    height: var(--navbarHeight);
+    background-color: #171a21;
+    display: flex;
+    justify-content: center;
+    //border: 2px solid;
+}
+
+.homepageText{
+    color: white;
+    font-weight: bold;
+    font-family: "VAGRounded";
+    font-size: 1em;
+    text-decoration: none;
+}

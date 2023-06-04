@@ -1,0 +1,125 @@
+@import '../../index.css';
+.wrapper{
+    min-width: var(--appWrapperLarge);
+    margin-top: 0.5em;
+    background-color: rgba(67,73,83, 0.1);
+    
+}
+.header_contain{
+    margin-top: 2em;
+    min-width: var(--appWrapperLarge);
+    > .title{
+        font-size: 1.8em;
+        line-height: 2.2em;
+        text-overflow: ellipsis;
+        color: white;
+    }
+    background: transparent;
+}
+
+.app_page{
+    min-height: 150vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.media_and_summary{
+    width: 100%;
+    display: flex;
+    flex-direction: horizontal;
+
+    > .video{
+        width: var(--appVideoLarge);
+    }
+    > .summary{
+        margin-left: 1em;
+        width: calc(var(--appWrapperLarge) - var(--appVideoLarge) - 1em);
+
+        > .app_description_snipper{
+            color: #c6d4df;
+            font-size: var(--shortDescriptionFont);
+            
+            max-height: calc(6*(var(--shortDescriptionFont)+0.5em));
+            overflow: hidden;
+        }
+        @supports (-webkit-line-clamp: 2) {
+          > .app_description_snipper{
+                color: #c6d4df;
+                font-size: var(--shortDescriptionFont);
+                
+                max-height: 300px;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 6;
+                overflow: hidden;
+            }
+        }
+    }
+}
+/* .video{
+    width: var(--appVideoLarge);
+} */
+
+.header{
+    width: 100%; /* or any custom size */
+    height: auto; 
+    object-fit: contain;
+}
+
+
+.glance{
+    margin-top: 0.5em;
+    width: 100%;
+    //border: 2px solid red;
+}
+.row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.column {
+  float: left;
+  padding: 1px 0 1px 0;
+  
+}
+.left   
+{   
+    font-size: 0.7em;
+    text-transform: uppercase;
+    flex: 0.4;
+    //border: 2px solid red;
+}
+.right
+{   
+    font-size: 0.8em;
+    flex: 0.6;
+    color: #54a5d4;
+}
+.grey_text{
+    color: #556772;
+}
+.blue_text{
+    color: #54a5d4;
+  }
+
+
+
+/* .app_description_snipper{
+    color: #c6d4df;
+    font-size: var(--shortDescriptionFont);
+    
+    max-height: calc(6*(var(--shortDescriptionFont)+0.5em));
+    overflow: hidden;
+}
+@supports (-webkit-line-clamp: 2) {
+    .app_description_snipper{
+        color: #c6d4df;
+        font-size: var(--shortDescriptionFont);
+        
+        max-height: 300px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 6;
+        overflow: hidden;
+    }
+} */

@@ -1,0 +1,41 @@
+@import '../../index.css';
+.content_capsule{
+    position: relative;
+    text-align: center;  
+    width: var(--widthOfIteminList);
+    transition: all .2s ease-in-out;
+}
+.content_capsule:hover{
+    transform: scale(1.1);
+}
+.thumbCap{
+    max-width: 100%;
+}
+.label{
+    position: absolute;
+    text-transform: uppercase;
+    font-weight:bold;
+    color: white;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    bottom: 0.5em;
+}
+.gradient_div{
+    //background: linear-gradient(rgba(0,0,0,0), rgb(139,0,0) 100%);
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 100%;
+}
+/* .gradient_div:nth-of-type(1){
+    background: linear-gradient(rgba(0,0,0,0), rgb(139,0,0) 100%);
+}
+.gradient_div:nth-of-type(2){
+    background: linear-gradient(rgba(0,0,0,0), rgb(0,0,139) 100%);
+}
+.gradient_div:nth-of-type(3){
+    background: linear-gradient(rgba(0,0,0,0), rgb(184,134,11)  100%);
+}
+.gradient_div:nth-of-type(4){
+    background: linear-gradient(rgba(0,0,0,0), rgb(0,100,0)  100%);
+} */
