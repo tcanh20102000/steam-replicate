@@ -48,7 +48,7 @@ export default function ListOfItems(props){
   //  }, [currIndex]);
 
   let w = window.innerWidth;
-  let h = window.innerHeight;
+  //let h = window.innerHeight;
   
   if(w < 1000){
     console.log(itemList);

@@ -1,9 +1,10 @@
 @import '../../index.css';
 .wrapper{
-    min-width: var(--appWrapperLarge);
+    //border: 2px solid red;
+    width: var(--appWrapperLarge);
     margin-top: 0.5em;
-    background-color: rgba(67,73,83, 0.1);
-    
+    //background-color: rgba(67,73,83, 0.1);
+    background-color: rgba(27, 40, 56, 0.1);
 }
 .header_contain{
     margin-top: 2em;
@@ -100,7 +101,83 @@
 }
 .blue_text{
     color: #54a5d4;
-  }
+}
+
+.full_game_detail{
+    //border: 2px solid yellow;
+    margin-top: 3em;
+    width: 100%;
+    > h2{
+        text-transform: uppercase;
+        color: #ffffff;
+        font-size: 0.9em;
+        font-weight: normal;
+        position: relative;
+    }
+     
+    > h2::before{
+        content: "";
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        left: 0;
+        height: 1px;
+        border-radius: 2px;
+        background: linear-gradient(111.3deg, rgba(156, 39, 176, 0.5) 9.6%, rgba(0, 0, 0, 0) 93.6%); 
+    }
+}
+.about_the_game{
+    color: #969696;
+}
+.require{
+    margin-top: 3em;
+    > h2{
+        text-transform: uppercase;
+        color: #ffffff;
+        font-size: 0.9em;
+        font-weight: normal;
+        position: relative;
+        margin-bottom: 0;
+    }
+     
+    > h2::before{
+        content: "";
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        left: 0;
+        height: 1px;
+        border-radius: 2px;
+        background: linear-gradient(111.3deg, rgba(156, 39, 176, 0.5) 9.6%, rgba(0, 0, 0, 0) 93.6%);  
+    }
+}
+.os_option{
+    margin-top: 0;
+    width: 100%;
+    height: 1.5em;
+    background: linear-gradient(111.3deg, rgba(33,54,73, 1) 9.6%, rgba(0, 0, 0, 0) 93.6%);
+    display: flex;
+    flex-direction: horizontal;
+    padding: 0;
+
+    > div{
+        color: #28557a;
+        margin: 0.25em 1em 0 1em;
+        font-size: 0.9em;
+    }
+    
+
+    >div:hover{
+        color: #ffffff;
+    }
+    >.div_focus{
+        background-color: #18222e;
+        color: #67c1f5;
+    }
+
+    
+}
+
 
 
 
