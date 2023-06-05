@@ -2,33 +2,13 @@ import styles from "./AppDetail.module.css";
 import React from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import parse from "html-react-parser";
+import DOMPurify from "dompurify";
 
 const TIMEOUT = 10000;
 const CallHostAPI = "http://localhost:8080/get_app_detail";
 
-// const fetchData = async (URL, setLoading) => {
-//   let ret = [];
-//   console.log("fetching...");
-//   try {
-//     setLoading(true);
-//     const res1 = await axios.get(URL, {
-//       //headers: { "Access-Control-Allow-Origin": "*" },
-//       //params: params,
-//       timeout: TIMEOUT,
-//     });
-//     if (res1 != null && res1.data != null) {
-//       ret = res1.data;
 
-//       //console.log("ret length", ret.length);
-//       console.log("Done fetch");
-//       setLoading(false);
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     setLoading(false);
-//   }
-
-// };
 function changeWebTitle(name){
   document.title = name;
 }
@@ -51,15 +31,7 @@ export default function AppDetail(props){
       );
     };
 
-    //let appid = '2206320';
-    // React.useEffect(
-    //   () =>
-    //     fetchData(getAppDetailAPI, setLoading).then((ret) => {
-    //       console.log("app detail:", ret);
-    //     }),
-    //   [getAppDetailAPI]
-    // );
-
+    
     React.useEffect(()=>{
       const getAppDetailAPI = CallHostAPI + `/app_and_reviews/${appid}`;
       const fetchData = async (URL, setLoading) => {
@@ -69,16 +41,14 @@ export default function AppDetail(props){
         try {
           setLoading(true);
           const res1 = await axios.get(URL, {
-            //headers: { "Access-Control-Allow-Origin": "*" },
-            //params: params,
             timeout: TIMEOUT,
           });
           if (res1 != null && res1.data != null) {
             ret = res1.data[`${appid}`];
             changeWebTitle(ret.data.name);
-            //console.log("ret length", ret.length);
+            
             setData(ret);
-            //console.log('app detail', ret.data.movies[0]);
+            
             console.log("Done fetch");
             setLoading(false);
           }
@@ -92,27 +62,28 @@ export default function AppDetail(props){
         }
       };
       fetchData(getAppDetailAPI, setLoading);     
-    }, [appid])
+    }, [appid]);
 
-    const VisualDemo = () =>{
-      let returnJSX = () =>{
-        return(<></>);
-      }
-      if(data.data === []){
-        
-      }
-      else if (data.data.hasOwnProperty("movies")) {
-        returnJSX = (<Video src={data.data?.movies?.[0].webm?.["480"]} />);
-        console.log('ret', returnJSX);
-      }
-      else if (data.data.hasOwnProperty("screenshots")) {
+    const VisualDemo = (props) => {
+      let returnJSX = () => {
+        return <></>;
+      };
+      if (props === []) {
+      } else if (props.hasOwnProperty("movies")) {
+        returnJSX = <Video src={props?.movies?.[0].webm?.["480"]} />;
+        console.log("ret", returnJSX);
+      } else if (props.hasOwnProperty("screenshots")) {
         returnJSX = (
           <>
-            <img src={data.data?.screenshots?.[0].path_thumbnail} />
-          </>);
-        };
+            <img src={props.screenshots?.[0].path_thumbnail} />
+          </>
+        );
+      }
       return returnJSX;
-    }
+    };
+
+
+    
     const Glance = (props) =>{
       if (!props.customer_review) {
         return <></>;
@@ -177,6 +148,38 @@ export default function AppDetail(props){
         </div>
       );
     }
+    const htmlFrom = (htmlString) => {
+      const cleanHtmlString = DOMPurify.sanitize(htmlString, {
+        USE_PROFILES: { html: true },
+      });
+      const html = parse(cleanHtmlString);
+      return html;
+    };
+
+    const DetailReview = (props) =>{
+      const {about_the_game} = props;
+      return (
+        <>
+          <h2>About this game</h2>
+          <div className={styles.about_the_game}>{htmlFrom(about_the_game)}</div>
+        </>
+      );
+    }
+    const SystemRequire = (props) =>{
+      const { pc_requirements, mac_requirements, linux_requirements } = props;
+      let valList = [pc_requirements, mac_requirements, linux_requirements];
+      let displayList = ["Windows", "MacOS", "SteamOS + Linux"];
+      return (
+        <>
+          <h2>System Requirements</h2>
+          <div className={styles.os_option}>
+            <div >Windows</div>
+            <div>MacOS</div>
+            <div>SteamOS + Linux</div>
+          </div>
+        </>
+      );
+    }
 
     return (
       <>
@@ -196,7 +199,7 @@ export default function AppDetail(props){
             <div className={styles.wrapper}>
               <div className={styles.media_and_summary}>
                 <div className={styles.video}>
-                  <VisualDemo />
+                  <VisualDemo {...data.data} />
                 </div>
                 <div className={styles.summary}>
                   <img
@@ -208,6 +211,12 @@ export default function AppDetail(props){
                   </div>
                   <Glance {...data.data} />
                 </div>
+              </div>
+              <div className={styles.full_game_detail}>
+                <DetailReview {...data.data} />
+              </div>
+              <div className={styles.require}>
+                <SystemRequire {...data.data} />
               </div>
             </div>
           </div>
