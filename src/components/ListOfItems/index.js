@@ -12,13 +12,10 @@ const ListOfItem = ({ list, thumbnail, type }) => {
     return <></>;
   }
   const listOfItem = list.map((val, index) => {
-    //console.log(index, val);
+    
     if(type === 'game'){
-
-      return (
-        
-          <AGame key={index} {...val} />
-        
+      return (        
+          <AGame key={index} {...val} />        
       );
     }
     else{
@@ -85,22 +82,7 @@ export default function ListOfItems(props){
       )
     }
   }
-
- 
-
   
   return <DisplayContent />;
-  // return (
-  //   <div className={styles.list_capsule}>
-  //     <ListOfItem list={currentPosts} thumbnail={thumbnail} type={type} />
-  //     <Paginate
-  //       currIndex={currIndex}
-  //       numbOfPostsPerPage={postPerPage}
-  //       totalNumOfPosts={itemList.length}
-  //       paginate={paginate}
-  //     />
-  //   </div>
-  // );
-    
   
 }

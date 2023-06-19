@@ -1,0 +1,70 @@
+.gameCapsule{
+    height: 6em;
+    width: 30em;
+    transition: all .4s ease-in-out;
+    background: radial-gradient(ellipse at top left, rgba(66, 69, 76, 0.6), rgba(37, 40, 46, 0.4)); 
+    display: flex;
+    flex-direction: horizontal;
+}
+.center_loader{
+    display: flex;
+    justify-content: center; 
+    width: 100%;
+}
+.gameCapsule:hover{
+    
+    transform: scale(1.1);
+}
+.thumbCap{
+    margin: 0;
+    height: 100%;
+    line-height: 0;
+}
+.thumbnail{
+    height: 100%;
+    aspect-ratio: 230/107;
+    object-fit: contain;
+}
+
+.info{
+    max-width: 5em;
+    display: flex;
+    flex-direction: horizontal;
+    background: linear-gradient(60deg, #00ADEE, #000000);
+    padding: 2px 0 2px 2px;
+
+}
+.discount{
+    font-size: 0.75em;
+    color: #BEEE11;
+    background: #4c6b22;
+    padding: 2px 0 2px 2px;
+}
+.finalPrice{
+    padding: 2px 4px 2px 4px;
+    background-color: rgba(20,31,44,0.4);
+    border-radius: 1px;
+    font-size: 0.75em;
+    color: #ffffff;
+}
+
+
+.loader{
+    margin-top: 1em;
+    border: 6px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 6px solid #3498db;
+    width: 2em;
+    height: 2em;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

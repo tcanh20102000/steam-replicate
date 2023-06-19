@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../Navbar";
 import Home from "../Home/index.js";
 import AppDetail from "../AppDetail";
+import GenrePage from "../../pages/GenrePage";
 import {
   BrowserRouter as Router,
   Route,
@@ -18,6 +19,7 @@ export default function WholeApp(){
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route exact path="/app/:appid" element={<AppDetail />} />
+              <Route exact path="/genre/:genre" element={<GenrePage/>}/>
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>

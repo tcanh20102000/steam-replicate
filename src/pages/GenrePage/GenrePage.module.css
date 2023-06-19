@@ -1,0 +1,11 @@
+@import '../../index.css';
+
+.page_content{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-color: rgb(14, 16, 20);
+    color: white;
+    height: 100%;
+    min-height: calc(100vh - var(--navbarHeight));
+}
