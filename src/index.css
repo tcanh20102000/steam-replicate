@@ -11,6 +11,10 @@ html, body {
   margin:0;
   padding:0;
 }
+@font-face {
+  font-family: 'Steam Font';
+  src: local('Steam Font'), url('./fonts/Steam Font.ttf') format('truetype');
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -18,12 +22,13 @@ code {
 }
 :root{
   --smallDeviceScreen: 600px;
-  --navbarHeight: 2em;
+  --navbarHeight: 4em;
   --gapbwIteminList: 1em;
   --widthOfIteminList: 15em;
   --dirButton: 4em;
   --appWrapperLarge: 948px;
   --appVideoLarge: 600px;
   --shortDescriptionFont: 0.8em;
+  --footerHeight: 4em;
   //--contentWidth: calc(100vh - --navbarWidth);
 }

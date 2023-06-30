@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import parse from "html-react-parser";
 import DOMPurify from "dompurify";
+import { useNavigate } from "react-router-dom";
 
 const TIMEOUT = 10000;
 const CallHostAPI = "http://localhost:8080/get_app_detail";
@@ -17,6 +18,13 @@ export default function AppDetail(props){
     const { appid } = useParams();
     const [loading, setLoading] = React.useState(false);
     const [data, setData] = React.useState({ data: [], search: true });
+
+    const navigate = useNavigate();
+    const toCart = () => {
+      navigate(`/cart`, {state: {appid: appid, appData: data.data }});
+    };
+
+    const [currentDemoId, setCurrentDemoId] = React.useState({demoId: 0, isMovie: false});
 
     const Video = (props) => {
       //console.log('src, ', src);
@@ -65,13 +73,11 @@ export default function AppDetail(props){
     }, [appid]);
 
     const VisualDemo = (props) => {
-      let returnJSX = () => {
-        return <></>;
-      };
+      let returnJSX = '';
       if (props === []) {
       } else if (props.hasOwnProperty("movies")) {
         returnJSX = <Video src={props?.movies?.[0].webm?.["480"]} />;
-        console.log("ret", returnJSX);
+        //console.log("ret", returnJSX);
       } else if (props.hasOwnProperty("screenshots")) {
         returnJSX = (
           <>
@@ -79,9 +85,32 @@ export default function AppDetail(props){
           </>
         );
       }
-      return returnJSX;
+      return <>{returnJSX}</>
     };
+    
+    function ImageMovieSlider(props){
+      if(!props){        
+        return [];
+      }
+      const {screenshots, movies} = props;
+      if(!screenshots || !movies) {
+        return [];
+      }
+      const listOfMovies = movies.map((item,id)=>{
+        return(
+          {...item, isMovie: true, key: id}
+        );
+      })
+      const listOfScreenshots = screenshots.map((item,id)=>{
+        return { ...item, isMovie: false, key: id };
+      })
+      let displayList = listOfMovies.concat(listOfScreenshots).map((item,id)=>{
+        return({...item, demoId: id, key: id});
+      })
+      console.log('display', displayList);
 
+    }
+    ImageMovieSlider({...data.data});
 
     
     const Glance = (props) =>{
@@ -101,7 +130,6 @@ export default function AppDetail(props){
         date = release_date.date;
       }
 
-      console.log(review_score_desc, total_reviews);
       return (
         <div className={styles.glance}>
           <div className={styles.row}>
@@ -156,6 +184,63 @@ export default function AppDetail(props){
       return html;
     };
 
+    function Price(props){
+      const { price_overview, package_groups, name, is_free } = props;
+      if(is_free){
+        return (
+          <div className={styles.price_wrapper}>
+            <h2>{`Play ${name}`}</h2>
+
+            <div className={styles.buy_section}>             
+              <div className={styles.price_tag}>
+                <div className={styles.price}>Free To Play</div>
+                <div className={styles.cart_button}>Play Game</div>
+              </div>          
+            </div>
+          </div>
+        );
+      }
+      if(!price_overview || !package_groups || !name){
+        return <></>
+      }
+      const { discount_percent, initial_formatted,final_formatted} = price_overview;
+      
+      return (
+        <div className={styles.price_wrapper}>
+          <h2>{`Play ${name}`}</h2>
+          {discount_percent != 0 && <p>Currently on sale</p>}
+          <div className={styles.buy_section}>
+            {discount_percent != 0 && (
+              <>
+                <div className={styles.discount_price_tag}>
+                  <div
+                    className={styles.discount}
+                  >{`-${discount_percent}%`}</div>
+                  <div className={styles.price}>
+                    <div className={styles.old_price}>{initial_formatted}</div>
+                    <div className={styles.new_price}>{final_formatted}</div>
+                  </div>
+                  <div className={styles.cart_button} onClick={toCart}>
+                    Add To Cart
+                  </div>
+                </div>
+              </>
+            )}
+            {discount_percent == 0 && (
+              <>
+                <div className={styles.price_tag}>
+                  <div className={styles.price}>{final_formatted}</div>
+                  <div className={styles.cart_button} onClick={toCart}>
+                    Add To Cart
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      );
+    }
+
     const DetailReview = (props) =>{
       const {about_the_game} = props;
       return (
@@ -169,16 +254,92 @@ export default function AppDetail(props){
       const { pc_requirements, mac_requirements, linux_requirements } = props;
       let valList = [pc_requirements, mac_requirements, linux_requirements];
       let displayList = ["Windows", "MacOS", "SteamOS + Linux"];
+
+      const [OSdigit, setOSDigit] = React.useState(0);
+      const buttonList = valList.map((item, id)=>{
+        if(Array.isArray(item)){
+          return(<div key={id}></div>);
+        }
+        
+        return (
+          <div key={id}>
+            <button
+              onClick={() => setOSDigit(id)}
+              className={id === OSdigit ? styles.div_focus : styles.normal_div}
+              key={id}
+            >
+              {displayList[id]}
+            </button>
+          </div>
+        );
+      })
+
+      let currentOS = valList[OSdigit];
+      const { minimum } =
+        typeof currentOS !== "undefined" && 
+        currentOS.hasOwnProperty("minimum")
+          ? currentOS
+          : { minimum: "" };
+      const { recommended } =
+        typeof currentOS !== "undefined" &&
+        currentOS.hasOwnProperty("recommended")
+          ? currentOS
+          : {  recommemded: "" };
       return (
         <>
           <h2>System Requirements</h2>
-          <div className={styles.os_option}>
-            <div >Windows</div>
-            <div>MacOS</div>
-            <div>SteamOS + Linux</div>
+          <div className={styles.os_option}>{buttonList}</div>
+          <div className={styles.os_req}>
+            <div>{htmlFrom(minimum)}</div>
+            <div>{htmlFrom(recommended)}</div>
           </div>
         </>
       );
+    }
+    function Achievement(props) {
+      const {achievements} = props;
+      const { total, highlighted } =
+        typeof achievements !== "undefined" &&
+        achievements.hasOwnProperty("total") &&
+        achievements.hasOwnProperty("highlighted")
+          ? achievements
+          : { total: undefined, highlighted: undefined };
+
+      if(!total || !highlighted ){
+        return(<></>);
+      }
+      const displayList = highlighted.slice(0, 3).map((item, id) => {
+        return (
+          <div className={styles.achieve} title={item.name} key={id}>
+            <img src={item.path} alt='Should have img in Achieve'/>
+          </div>
+        );
+      });
+      displayList.push(
+        <div className={styles.show_more} key={displayList.length}>
+          View all {total}
+        </div>);
+      return (
+        <div className={styles.achievement}>                
+          <p>Include {total} Steam achievements</p>
+          <div className={styles.achieve_img}>
+            {displayList}           
+          </div>          
+        </div>
+      );
+    }
+
+    function SupportedLanguage(props){
+      const { supported_languages } = props;
+      if(!supported_languages){
+        return <></>;
+      }
+      return(
+        <>
+          <p>Supported Language:</p>
+          {htmlFrom(supported_languages)}
+        </>
+      )
     }
 
     return (
@@ -205,6 +366,7 @@ export default function AppDetail(props){
                   <img
                     src={data.data?.header_image}
                     className={styles.header}
+                    alt='Summary'
                   />
                   <div className={styles.app_description_snipper}>
                     {data.data?.short_description}
@@ -212,11 +374,22 @@ export default function AppDetail(props){
                   <Glance {...data.data} />
                 </div>
               </div>
-              <div className={styles.full_game_detail}>
-                <DetailReview {...data.data} />
-              </div>
-              <div className={styles.require}>
-                <SystemRequire {...data.data} />
+              <div className={styles.grid_wrapper}>
+                <div className={styles.first_col}>
+                  <Price {...data.data} />
+                  <div className={styles.full_game_detail}>
+                    <DetailReview {...data.data} />
+                  </div>
+                  <div className={styles.require}>
+                    <SystemRequire {...data.data} />
+                  </div>
+                </div>
+                <div className={styles.second_col}>
+                  <Achievement {...data.data} />
+                  <div className={styles.language}>
+                    <SupportedLanguage {...data.data} />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -224,4 +397,3 @@ export default function AppDetail(props){
       </>
     );
 }
-//<Video src={data.data?.movies[0]?.thumbnail}/>

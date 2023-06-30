@@ -1,0 +1,24 @@
+
+@import '../../index.css';
+
+.page_wrapper{
+    width: 100%;
+
+    background: #171a21;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: var(--footerHeight);
+    padding: 2em 0;
+    > .line{
+        border-top: 1px solid #363c44;
+        height: 1em;
+        width: var(--appWrapperLarge);
+    }
+    > .ctn{
+        width: var(--appWrapperLarge);
+        color: white;
+        height: 4em;
+    }   
+}
