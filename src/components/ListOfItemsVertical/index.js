@@ -1,8 +1,6 @@
-
 import AGameVertical from "../AGameVertical";
 import styles from "./ListOfItemsVertical.module.css";
 import {useCustomContext} from "../../reducer/CustomContext/CustomContext";
-
 
 
 import React from "react";
@@ -41,6 +39,9 @@ export default function ListOfItemsVertical(props) {
     
     return (
       <div className={styles.list_capsule}>
+        <div className={styles.header}>
+          <span>All Item</span>
+        </div>
         <ListOfItemVerticalJSX list={state.payload} />
       </div>
     );

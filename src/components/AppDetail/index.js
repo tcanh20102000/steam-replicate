@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import parse from "html-react-parser";
 import DOMPurify from "dompurify";
+import { useNavigate } from "react-router-dom";
 
 const TIMEOUT = 10000;
 const CallHostAPI = "http://localhost:8080/get_app_detail";
@@ -17,6 +18,11 @@ export default function AppDetail(props){
     const { appid } = useParams();
     const [loading, setLoading] = React.useState(false);
     const [data, setData] = React.useState({ data: [], search: true });
+
+    const navigate = useNavigate();
+    const toCart = () => {
+      navigate(`/cart`, {state: {appid: appid, appData: data.data }});
+    };
 
     const [currentDemoId, setCurrentDemoId] = React.useState({demoId: 0, isMovie: false});
 
@@ -71,7 +77,7 @@ export default function AppDetail(props){
       if (props === []) {
       } else if (props.hasOwnProperty("movies")) {
         returnJSX = <Video src={props?.movies?.[0].webm?.["480"]} />;
-        console.log("ret", returnJSX);
+        //console.log("ret", returnJSX);
       } else if (props.hasOwnProperty("screenshots")) {
         returnJSX = (
           <>
@@ -83,13 +89,11 @@ export default function AppDetail(props){
     };
     
     function ImageMovieSlider(props){
-      if(!props){
-        console.log("nothing");
+      if(!props){        
         return [];
       }
       const {screenshots, movies} = props;
       if(!screenshots || !movies) {
-        console.log('nothing');
         return [];
       }
       const listOfMovies = movies.map((item,id)=>{
@@ -181,24 +185,43 @@ export default function AppDetail(props){
     };
 
     function Price(props){
-      const { price_overview, package_groups, name } = props;
+      const { price_overview, package_groups, name, is_free } = props;
+      if(is_free){
+        return (
+          <div className={styles.price_wrapper}>
+            <h2>{`Play ${name}`}</h2>
+
+            <div className={styles.buy_section}>             
+              <div className={styles.price_tag}>
+                <div className={styles.price}>Free To Play</div>
+                <div className={styles.cart_button}>Play Game</div>
+              </div>          
+            </div>
+          </div>
+        );
+      }
       if(!price_overview || !package_groups || !name){
         return <></>
       }
-      const {currency, discount_percent, initial_formatted,final_formatted} = price_overview;
+      const { discount_percent, initial_formatted,final_formatted} = price_overview;
       
       return (
         <div className={styles.price_wrapper}>
-          <h2>{`Buy ${name}`}</h2>
+          <h2>{`Play ${name}`}</h2>
           {discount_percent != 0 && <p>Currently on sale</p>}
           <div className={styles.buy_section}>
             {discount_percent != 0 && (
               <>
                 <div className={styles.discount_price_tag}>
-                  <div className={styles.discount}>{`-${discount_percent}%`}</div>
+                  <div
+                    className={styles.discount}
+                  >{`-${discount_percent}%`}</div>
                   <div className={styles.price}>
                     <div className={styles.old_price}>{initial_formatted}</div>
                     <div className={styles.new_price}>{final_formatted}</div>
+                  </div>
+                  <div className={styles.cart_button} onClick={toCart}>
+                    Add To Cart
                   </div>
                 </div>
               </>
@@ -207,6 +230,9 @@ export default function AppDetail(props){
               <>
                 <div className={styles.price_tag}>
                   <div className={styles.price}>{final_formatted}</div>
+                  <div className={styles.cart_button} onClick={toCart}>
+                    Add To Cart
+                  </div>
                 </div>
               </>
             )}
@@ -285,7 +311,7 @@ export default function AppDetail(props){
       const displayList = highlighted.slice(0, 3).map((item, id) => {
         return (
           <div className={styles.achieve} title={item.name} key={id}>
-            <img src={item.path} />
+            <img src={item.path} alt='Should have img in Achieve'/>
           </div>
         );
       });
@@ -302,6 +328,7 @@ export default function AppDetail(props){
         </div>
       );
     }
+
     function SupportedLanguage(props){
       const { supported_languages } = props;
       if(!supported_languages){
@@ -339,6 +366,7 @@ export default function AppDetail(props){
                   <img
                     src={data.data?.header_image}
                     className={styles.header}
+                    alt='Summary'
                   />
                   <div className={styles.app_description_snipper}>
                     {data.data?.short_description}
@@ -369,49 +397,3 @@ export default function AppDetail(props){
       </>
     );
 }
-{/* <div className={styles.achievement}>
-  <Achievement {...data.data} />
-</div>; */}
-
-// return (
-//   <>
-//     {loading ? (
-//       <h2>Loading...</h2>
-//     ) : (
-//       <div
-//         className={styles.app_page}
-//         style={{
-//           background: `url('${data.data.background}') left top no-repeat, #1b2838`,
-//           backgroundSize: "100% 500px, auto 100%",
-//         }}
-//       >
-//         <div className={styles.header_contain}>
-//           <div className={styles.title}>{data.data.name}</div>
-//         </div>
-//         <div className={styles.wrapper}>
-//           <div className={styles.media_and_summary}>
-//             <div className={styles.video}>
-//               <VisualDemo {...data.data} />
-//             </div>
-//             <div className={styles.summary}>
-//               <img src={data.data?.header_image} className={styles.header} />
-//               <div className={styles.app_description_snipper}>
-//                 {data.data?.short_description}
-//               </div>
-//               <Glance {...data.data} />
-//             </div>
-//           </div>
-//           <div className={styles.full_game_detail}>
-//             <DetailReview {...data.data} />
-//           </div>
-//           <div className={styles.require}>
-//             <SystemRequire {...data.data} />
-//           </div>
-//           <div className={styles.achievement}>
-//             <Achievement {...data.data} />
-//           </div>
-//         </div>
-//       </div>
-//     )}
-//   </>
-// );
