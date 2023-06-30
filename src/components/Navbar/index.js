@@ -2,6 +2,7 @@ import styles from './Navbar.module.css';
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
 export default function Navbar(){
   const [cartLength, setCartLength] = React.useState(0);
 
@@ -11,7 +12,11 @@ export default function Navbar(){
   };
 
   const APP_LIST = "APP_LIST";
+  // React.useEffect(() => {
+  //   window.dispatchEvent(new Event("storage"));
+  // }, [cartLength]);
   React.useEffect(() => {
+    
     function changeCartLength() {
       console.log("change Cart length running");
       let numOfItem =
@@ -23,7 +28,7 @@ export default function Navbar(){
       setCartLength(numOfItem);
     }
     window.addEventListener("storage", changeCartLength);
-
+    window.dispatchEvent(new Event("storage"));
     return () => {
       window.removeEventListener("storage", changeCartLength);
     };
