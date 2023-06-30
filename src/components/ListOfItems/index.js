@@ -11,8 +11,7 @@ const ListOfItem = ({ list, thumbnail, type }) => {
   if (!list) {
     return <></>;
   }
-  const listOfItem = list.map((val, index) => {
-    
+  const listOfItem = list.map((val, index) => {   
     if(type === 'game'){
       return (        
           <AGame key={index} {...val} />        

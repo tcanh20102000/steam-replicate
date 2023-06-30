@@ -74,8 +74,10 @@ export default function Content(){
 
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState({ data: [], search: true });
+  
 
   React.useEffect(() => {getRandomGame(setLoading,setData);}, []);
+  
 
   return (
     <>

@@ -1,18 +1,46 @@
 
 @import '../../index.css';
+
 .navbar{
     width: 100%;
     height: var(--navbarHeight);
     background-color: #171a21;
     display: flex;
     justify-content: center;
+    position: relative;
     //border: 2px solid;
-}
+    >.to_cart{
+        position: absolute;
+        width: 4rem;
+        display:flex;
+        justify-content: center;
 
-.homepageText{
-    color: white;
-    font-weight: bold;
-    font-family: "VAGRounded";
-    font-size: 1em;
-    text-decoration: none;
+        bottom: 0.5rem;
+        right: calc((100vw - var(--appWrapperLarge))/2);
+
+        background-color: rgba( 164, 208, 7, 0.4 );
+        padding: 0.2rem 0 0.2rem 0;
+        cursor: default;
+
+        color: #a4d007;
+        text-transform: uppercase;
+        font-size: 0.7em;
+    }
+    >.to_cart:hover{
+        background-color: rgba( 164, 208, 7, 1);
+        color: #000000;
+    }
+}
+.homepage{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    > .homepageText{
+        color: white;
+        font-weight: bold;
+        font-family: 'Steam Font';
+        font-size: 1.5em;
+        text-decoration: none;
+        letter-spacing: .1rem; 
+    }
 }

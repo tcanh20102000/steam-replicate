@@ -6,8 +6,6 @@ import axios from "axios";
 const TIMEOUT = 10000;
 const CallHostAPI = "http://localhost:8080/get_app_detail";
 
-
-
 export default function AGameVertical(props) {
     const {  discount, src, appid } = props;
     
