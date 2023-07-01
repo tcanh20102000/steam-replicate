@@ -3,10 +3,11 @@ import ListOfItems from "../ListOfItems";
 import React from "react";
 import axios from "axios";
 import { categoryBgData } from "./data/categoryData";
+import { Constant } from "../../const/Const";
 
 
-const TIMEOUT = 10000;
-const CallHostAPI = "http://localhost:8080/";
+const TIMEOUT = Constant.TIMEOUT;
+const CallHostAPI = `${Constant.RootAPI}/`;
 
 const fetchData = async ( URL, params, setLoading) => {
   let ret = [];
