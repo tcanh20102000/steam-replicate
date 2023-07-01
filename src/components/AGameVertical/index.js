@@ -2,9 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from './AGameVertical.module.css';
 import axios from "axios";
+import { Constant } from "../../const/Const";
 
-const TIMEOUT = 10000;
-const CallHostAPI = "http://localhost:8080/get_app_detail";
+const TIMEOUT = Constant.TIMEOUT;
+const CallHostAPI = `${Constant.RootAPI}/get_app_detail`;
 
 export default function AGameVertical(props) {
     const {  discount, src, appid } = props;
@@ -129,18 +130,23 @@ export default function AGameVertical(props) {
         ) : (
           <>
             <div className={styles.thumbCap}>
-              <img src={src} className={styles.thumbnail} />
+              <img src={src} className={styles.thumbnail} alt='' />
             </div>
-            {price.purchase_able &&
-              (<div className={styles.info}>
-                {display_discount ? (
-                  <div className={styles.discount}>{display_discount}</div>
-                ) : (
-                  <></>
-                )}
-                <div className={styles.finalPrice}>{display_price}</div>
-              </div>)
-            }
+            <div className={styles.content}>
+              <div className={styles.info}>
+                <h2 onClick={handleClick}>{data.data.name}</h2>
+              </div>
+              {price.purchase_able && (
+                <div className={styles.price}>
+                  {display_discount ? (
+                    <div className={styles.discount}>{display_discount}</div>
+                  ) : (
+                    <></>
+                  )}
+                  <div className={styles.finalPrice}>{display_price}</div>
+                </div>
+              )}
+            </div>
           </>
         )}
       </div>

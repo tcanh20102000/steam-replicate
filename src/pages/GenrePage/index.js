@@ -9,11 +9,12 @@ import {
   INITIAL_STATE,
 } from "../../reducer/GenreAppReducer/GenreAppReducer";
 import CustomContext from "../../reducer/CustomContext/CustomContext";
+import { Constant } from "../../const/Const";
 
 import styles from './GenrePage.module.css';
 
-const TIMEOUT = 10000;
-const CallHostAPI = "http://localhost:8080/";
+const TIMEOUT = Constant.TIMEOUT;
+const CallHostAPI = `${Constant.RootAPI}/`;
 
 
 export default function GenrePage(props){

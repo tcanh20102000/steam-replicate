@@ -5,9 +5,10 @@ import axios from "axios";
 import parse from "html-react-parser";
 import DOMPurify from "dompurify";
 import { useNavigate } from "react-router-dom";
+import { Constant } from "../../const/Const";
 
-const TIMEOUT = 10000;
-const CallHostAPI = "http://localhost:8080/get_app_detail";
+const TIMEOUT = Constant.TIMEOUT;
+const CallHostAPI = `${Constant.RootAPI}/get_app_detail`;
 
 
 function changeWebTitle(name){
