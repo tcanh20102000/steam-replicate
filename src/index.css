@@ -30,5 +30,6 @@ code {
   --appVideoLarge: 600px;
   --shortDescriptionFont: 0.8em;
   --footerHeight: 4em;
+  --secondColInAppDetail: 17rem;
   //--contentWidth: calc(100vh - --navbarWidth);
 }
