@@ -1,5 +1,6 @@
 # 1. Introduction
 This project is a personal project that imitate the [Steam web browser](https://store.steampowered.com/) but low effort.
+[Demo for the website](https://stereact.000webhostapp.com/) is available.
 
 
 # 2. Visual
