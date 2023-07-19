@@ -32,3 +32,11 @@ code {
   --footerHeight: 4em;
   --secondColInAppDetail: 17rem;
 }
+
+@media (max-width: 600px){
+  :root{
+    --appWrapperLarge: 80vw;
+    --appVideoLarge: 80vw;
+    --secondColInAppDetail: 75vw;
+  }
+}

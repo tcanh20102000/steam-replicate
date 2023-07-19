@@ -3,6 +3,8 @@
 
 .navbar{
     width: 100%;
+    overflow-x:hidden;
+    
     height: var(--navbarHeight);
     background-color: #171a21;
     display: flex;
