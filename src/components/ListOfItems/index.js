@@ -22,10 +22,10 @@ const ListOfItem = ({ list, thumbnail, type }) => {
     }
   });
   return (
-    <div>
+    <>
       {thumbnail ? <h2 className={styles.thumbnail}>{thumbnail}</h2> : <></>}
       <div className={styles.horizon_list}>{listOfItem}</div>
-    </div>
+    </>
   );
 };
 
@@ -44,10 +44,9 @@ export default function ListOfItems(props){
   //  }, [currIndex]);
 
   let w = window.innerWidth;
-  //let h = window.innerHeight;
   
-  if(w < 1000){
-    console.log(itemList);
+  if(w <= 600){
+    console.log('short', itemList);
     DisplayContent = () => {
       return(
         <div className={styles.list_capsule}>

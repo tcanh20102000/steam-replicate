@@ -1,9 +1,10 @@
 @import '../../index.css';
 
 .page_content{
+    width: 100%;
     background-color: #1b2838;
     height: 100%;
-    min-height: calc(100vh - var(--navbarHeight));
+    min-height: calc(100vh - var(--navbarHeight) - var(--footerHeight));
 }
 @media only screen and (max-width: 600px) {
     

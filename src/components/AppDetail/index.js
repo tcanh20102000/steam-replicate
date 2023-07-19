@@ -360,19 +360,21 @@ export default function AppDetail(props){
             </div>
             <div className={styles.wrapper}>
               <div className={styles.media_and_summary}>
-                <div className={styles.video}>
-                  <VisualDemo {...data.data} />
-                </div>
-                <div className={styles.summary}>
-                  <img
-                    src={data.data?.header_image}
-                    className={styles.header}
-                    alt='Summary'
-                  />
-                  <div className={styles.app_description_snipper}>
-                    {data.data?.short_description}
+                <div className={styles.grid_wrapper}>
+                  <div className={[styles.video, styles.second_col].join(' ') }>
+                    <VisualDemo {...data.data} />
                   </div>
-                  <Glance {...data.data} />
+                  <div className={[styles.summary, styles.first_col].join(' ') }>
+                    <img
+                      src={data.data?.header_image}
+                      className={styles.header}
+                      alt="Summary"
+                    />
+                    <div className={styles.app_description_snipper}>
+                      {data.data?.short_description}
+                    </div>
+                    <Glance {...data.data} />
+                  </div>
                 </div>
               </div>
               <div className={styles.grid_wrapper}>

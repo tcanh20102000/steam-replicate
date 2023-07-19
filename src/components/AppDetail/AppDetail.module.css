@@ -29,38 +29,39 @@
     width: 100%;
     display: flex;
     flex-direction: horizontal;
+    
+}
+.video{
+    width: var(--appVideoLarge);
+    background-color: #000000;
+    display:flex;
+    justify-content: center;
+}
+.summary{
+    margin-left: 1em;
+    width: calc(var(--appWrapperLarge) - var(--appVideoLarge) - 1em);
 
-    > .video{
-        width: var(--appVideoLarge);
-        background-color: #000000;
-        display:flex;
-        justify-content: center;
+    > .app_description_snipper{
+        color: #c6d4df;
+        font-size: var(--shortDescriptionFont);
+        
+        max-height: calc(6*(var(--shortDescriptionFont)+0.5em));
+        overflow: hidden;
     }
-    > .summary{
-        margin-left: 1em;
-        width: calc(var(--appWrapperLarge) - var(--appVideoLarge) - 1em);
-
+    @supports (-webkit-line-clamp: 2) {
         > .app_description_snipper{
             color: #c6d4df;
             font-size: var(--shortDescriptionFont);
             
-            max-height: calc(6*(var(--shortDescriptionFont)+0.5em));
+            max-height: 300px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 6;
             overflow: hidden;
-        }
-        @supports (-webkit-line-clamp: 2) {
-          > .app_description_snipper{
-                color: #c6d4df;
-                font-size: var(--shortDescriptionFont);
-                
-                max-height: 300px;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 6;
-                overflow: hidden;
-            }
         }
     }
 }
+
 
 .header{
     width: 100%; /* or any custom size */
@@ -107,7 +108,7 @@
     grid-template-columns: 1fr auto;
     grid-gap: 10px;
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
 	.grid_wrapper{
         display: grid;
         grid-template-columns: auto ;
@@ -119,6 +120,20 @@
     }
     .second_col{
         order: -1;
+    }
+    .summary{
+        width: var(--appWrapperLarge);
+        margin-left: 0;
+    }
+    .wrapper{
+        margin-top: 0;
+    }
+    .header_contain{
+        margin-top: 1em;
+        height: 2em;
+    }
+    .about_the_game img {
+        width: var(--appWrapperLarge);
     }
   
 }
