@@ -21,7 +21,7 @@ code {
     monospace;
 }
 :root{
-  --smallDeviceScreen: 600px;
+  --smallDeviceScreen: 1000px;
   --navbarHeight: 4em;
   --gapbwIteminList: 0.5em;
   --widthOfIteminList: 15em;
@@ -33,7 +33,7 @@ code {
   --secondColInAppDetail: 17rem;
 }
 
-@media (max-width: 600px){
+@media (max-width: 1000px){
   :root{
     --appWrapperLarge: 80vw;
     --appVideoLarge: 80vw;

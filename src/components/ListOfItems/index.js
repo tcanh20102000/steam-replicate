@@ -6,6 +6,8 @@ import React from "react";
 
 
 const postPerPage = 4;
+const smallScreen = getComputedStyle(document.querySelector(':root')).getPropertyValue("--smallDeviceScreen");
+console.log('smallScreen ', smallScreen);
 
 const ListOfItem = ({ list, thumbnail, type }) => {
   if (!list) {
@@ -35,8 +37,7 @@ export default function ListOfItems(props){
   const {itemList, thumbnail, type} = props;
   
   let DisplayContent = '';
- 
-  //let list = [1,2]
+
 
   const [currIndex, setcurrIndex] = React.useState(1);
   //  React.useEffect(() => {
@@ -45,29 +46,25 @@ export default function ListOfItems(props){
 
   let w = window.innerWidth;
   
-  if(w <= 600){
-    console.log('short', itemList);
+  if (w <= parseInt(smallScreen)) {
     DisplayContent = () => {
-      return(
+      return (
         <div className={styles.list_capsule}>
           <ListOfItem list={itemList} thumbnail={thumbnail} type={type} />
         </div>
-      )
-    }
-  }
-  else{
-
+      );
+    };
+  } else {
     const indexOfLastPost = currIndex * postPerPage;
     const indexOfFirstPost = indexOfLastPost - postPerPage;
     const currentPosts = itemList.slice(indexOfFirstPost, indexOfLastPost);
-
 
     const paginate = (pageIndex) => {
       setcurrIndex(pageIndex);
       //console.log('Click:', currPage);
     };
-    DisplayContent = () =>{
-      return(
+    DisplayContent = () => {
+      return (
         <div className={styles.list_capsule}>
           <ListOfItem list={currentPosts} thumbnail={thumbnail} type={type} />
           <Paginate
@@ -77,8 +74,8 @@ export default function ListOfItems(props){
             paginate={paginate}
           />
         </div>
-      )
-    }
+      );
+    };
   }
   
   return <DisplayContent />;
