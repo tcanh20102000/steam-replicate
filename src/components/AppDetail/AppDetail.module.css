@@ -82,8 +82,8 @@
 .column {
   float: left;
   padding: 1px 0 1px 0;
-  
 }
+
 .left   
 {   
     font-size: 0.7em;
@@ -102,13 +102,14 @@
 .blue_text{
     color: #54a5d4;
 }
+
 .grid_wrapper{
     margin-top: 2em;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-gap: 10px;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1000px) {
 	.grid_wrapper{
         display: grid;
         grid-template-columns: auto ;
@@ -135,8 +136,8 @@
     .about_the_game img {
         width: var(--appWrapperLarge);
     }
-  
 }
+
 .price_wrapper{
     width: 100%;
     min-height: 5rem;
@@ -165,7 +166,8 @@
     right: 5%;
     bottom: 0;
     transform: translateY(50%);
-    padding: 1px;
+    /* padding: 1px; */
+
     display: flex;
     justify-content: flex-end;
     padding: 0.2em;
@@ -208,6 +210,7 @@
         background-color: #000000;
         width: fit-content;
         height: 2rem;
+
         display: flex;
         flex-direction: horizontal;
         align-items: center;
@@ -215,10 +218,10 @@
             color: #ffffff;
             font-size: 0.8em;
             padding: 0 1em 0 1em;
-        }
-        
+        }       
     }
 }
+
 .cart_button{
     display: flex;
     align-items: center;
@@ -331,7 +334,6 @@
        
     }
     
-
     > div > .normal_div:hover{
         color: #ffffff;
     }

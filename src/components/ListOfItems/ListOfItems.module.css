@@ -17,17 +17,15 @@
     padding-top: 2px;
 }
 .list_capsule{
-    //width: calc(4*var(--widthOfIteminList) + 3*var(--gapbwIteminList));
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: hidden;
-    
-    
+    overflow-y: hidden;       
 }
-@media screen and (max-width: 600px){
+
+@media screen and (max-width: 1000px){
     .list_capsule{
-        margin: 0 0.25em 0.5em 0.25em;
+        margin: 0 0.25em 1em 0.25em;
         align-items: flex-start;
     }
     .thumbnail{
