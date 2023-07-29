@@ -22,9 +22,21 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
+    align-items: center;   
 }
+.whole_page{
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - var(--navbarHeight) - var(--footerHeight));
+    background-color: `#1b2838`
+}
+
+.set_div_center{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
 .media_and_summary{
     width: 100%;
     display: flex;
@@ -135,6 +147,9 @@
     }
     .about_the_game img {
         width: var(--appWrapperLarge);
+    }
+    .price_wrapper{
+        margin-bottom: 2.5em;
     }
 }
 
@@ -262,7 +277,36 @@
 }
 .about_the_game{
     color: #969696;
+    max-height: 850px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    content: "";
+    position:relative;
+    border-bottom: 1px solid #27394c;
 }
+.about_the_game:after {
+    content: "";
+    width: 100%;
+    height: 100%;    
+    position:absolute;
+    left: 0;
+    top: 0;
+    background:linear-gradient(transparent 96%, black);
+}
+.show_more_less{
+    height: 2rem;
+    line-height: 2rem;
+    cursor: pointer;
+    color: #537ca6;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: flex-end;
+}
+.show_more_less:hover{
+    color: #ffffff;
+}
+
+
 .about_the_game a{
     text-decoration: none;
     color: #ffffff;

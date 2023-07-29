@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 import ListOfItemsVertical from "../../components/ListOfItemsVertical";
+import LoadingComponent from "../../components/Loading";
 import { ACTION_TYPES } from "../../reducer/GenreAppReducer/action";
 import {
   GenreAppReducer,
@@ -71,7 +72,9 @@ export default function GenrePage(props){
     return (
       <CustomContext.Provider value={providerState}>
         {loading ? (
-          <h2>Loading...</h2>
+          <div className={styles.page_content}>
+            <LoadingComponent size="4em" />
+          </div>
         ) : (
           <div className={styles.page_content}>
             <ListOfItemsVertical />

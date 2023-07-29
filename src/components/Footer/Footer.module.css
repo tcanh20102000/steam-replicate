@@ -18,7 +18,9 @@
     }
     > .ctn{
         width: var(--appWrapperLarge);
-        color: white;
+        color: #8F98A0;
+        font-size:0.75em;
+        text-align: center;
         height: 4em;
     }   
 }

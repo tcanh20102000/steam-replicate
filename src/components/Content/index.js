@@ -1,5 +1,6 @@
 import styles from "./Content.module.css";
 import ListOfItems from "../ListOfItems";
+import LoadingComponent from "../Loading";
 import React from "react";
 import axios from "axios";
 import { categoryBgData } from "./data/categoryData";
@@ -82,20 +83,24 @@ export default function Content(){
 
   return (
     <>
-      {loading ? (<h2>Loading...</h2>) :
-      (<div className={styles.page_content}>
-        <ListOfItems
-          itemList={data.data}
-          thumbnail="Random game"
-          type="game"
-        />
-        <ListOfItems
-          itemList={categoryBgData}
-          thumbnail="Browse by Category"
-          type="*"
-        />
-      </div>)
-      }
+      {loading ? (
+        <div className={`${styles.page_content} ${styles.set_div_center}`}>
+          <LoadingComponent size="2em" />
+        </div>
+      ) : (
+        <div className={styles.page_content}>
+          <ListOfItems
+            itemList={data.data}
+            thumbnail="Random game"
+            type="game"
+          />
+          <ListOfItems
+            itemList={categoryBgData}
+            thumbnail="Browse by Category"
+            type="*"
+          />
+        </div>
+      )}
     </>
   );
 }

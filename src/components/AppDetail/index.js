@@ -7,6 +7,8 @@ import DOMPurify from "dompurify";
 import { useNavigate } from "react-router-dom";
 import { Constant } from "../../const/Const";
 
+import LoadingComponent from "../Loading";
+
 const TIMEOUT = Constant.TIMEOUT;
 const CallHostAPI = `${Constant.RootAPI}/get_app_detail`;
 
@@ -23,6 +25,14 @@ export default function AppDetail(props){
     const navigate = useNavigate();
     const toCart = () => {
       navigate(`/cart`, {state: {appid: appid, appData: data.data }});
+    };
+
+    const htmlFrom = (htmlString) => {
+      const cleanHtmlString = DOMPurify.sanitize(htmlString, {
+        USE_PROFILES: { html: true },
+      });
+      const html = parse(cleanHtmlString);
+      return html;
     };
 
     const [currentDemoId, setCurrentDemoId] = React.useState({demoId: 0, isMovie: false});
@@ -82,7 +92,7 @@ export default function AppDetail(props){
       } else if (props.hasOwnProperty("screenshots")) {
         returnJSX = (
           <>
-            <img src={props.screenshots?.[0].path_thumbnail} />
+            <img src={props.screenshots?.[0].path_thumbnail} alt='Img should show' />
           </>
         );
       }
@@ -111,7 +121,7 @@ export default function AppDetail(props){
       console.log('display', displayList);
 
     }
-    ImageMovieSlider({...data.data});
+    //ImageMovieSlider({...data.data});
 
     
     const Glance = (props) =>{
@@ -177,13 +187,7 @@ export default function AppDetail(props){
         </div>
       );
     }
-    const htmlFrom = (htmlString) => {
-      const cleanHtmlString = DOMPurify.sanitize(htmlString, {
-        USE_PROFILES: { html: true },
-      });
-      const html = parse(cleanHtmlString);
-      return html;
-    };
+    
 
     function Price(props){
       const { price_overview, package_groups, name, is_free } = props;
@@ -244,10 +248,41 @@ export default function AppDetail(props){
 
     const DetailReview = (props) =>{
       const {about_the_game} = props;
+      const parentRef = React.useRef(null);
+
+
+      const [readMore, setReadMore] = React.useState(true);
+      const [isOverflown, setIsOverflown] = React.useState(false);
+
+      React.useLayoutEffect(() => {
+        if (
+          parentRef.current !== null &&
+          parentRef.current.clientHeight < parentRef.current.scrollHeight
+        ) {
+          setIsOverflown(true);
+        }
+      }, [parentRef]);
+
+      
+
+      function setMaxHeight(){
+        parentRef.current.style.maxHeight = readMore ? "none" : "850px";
+        setReadMore(prevState => !prevState);
+      }
       return (
         <>
           <h2>About this game</h2>
-          <div className={styles.about_the_game}>{htmlFrom(about_the_game)}</div>
+          <div className={styles.about_the_game} ref={parentRef}>
+            {htmlFrom(about_the_game)}
+          </div>
+          {isOverflown && (
+            <div
+              className={styles.show_more_less}
+              onClick={() => setMaxHeight()}
+            >
+              {readMore ? "READ MORE" : "READ LESS"}
+            </div>
+          )}
         </>
       );
     }
@@ -346,7 +381,12 @@ export default function AppDetail(props){
     return (
       <>
         {loading ? (
-          <h2>Loading...</h2>
+          <div
+            className={`${styles.whole_page} ${styles.set_div_center}`}
+            style={{ backgroundColor: `#1b2838` }}
+          >
+            <LoadingComponent size="2em" />
+          </div>
         ) : (
           <div
             className={styles.app_page}
@@ -361,10 +401,10 @@ export default function AppDetail(props){
             <div className={styles.wrapper}>
               <div className={styles.media_and_summary}>
                 <div className={styles.grid_wrapper}>
-                  <div className={[styles.video, styles.second_col].join(' ') }>
+                  <div className={[styles.video, styles.second_col].join(" ")}>
                     <VisualDemo {...data.data} />
                   </div>
-                  <div className={[styles.summary, styles.first_col].join(' ') }>
+                  <div className={[styles.summary, styles.first_col].join(" ")}>
                     <img
                       src={data.data?.header_image}
                       className={styles.header}

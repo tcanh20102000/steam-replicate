@@ -7,7 +7,7 @@ import React from "react";
 
 const postPerPage = 4;
 const smallScreen = getComputedStyle(document.querySelector(':root')).getPropertyValue("--smallDeviceScreen");
-console.log('smallScreen ', smallScreen);
+//console.log('smallScreen ', smallScreen);
 
 const ListOfItem = ({ list, thumbnail, type }) => {
   if (!list) {
@@ -40,13 +40,24 @@ export default function ListOfItems(props){
 
 
   const [currIndex, setcurrIndex] = React.useState(1);
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+
+  React.useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
   //  React.useEffect(() => {
   //    setTimeout(() => setcurrIndex(), 1000);
   //  }, [currIndex]);
-
-  let w = window.innerWidth;
   
-  if (w <= parseInt(smallScreen)) {
+  if (windowWidth <= parseInt(smallScreen)) {
     DisplayContent = () => {
       return (
         <div className={styles.list_capsule}>
