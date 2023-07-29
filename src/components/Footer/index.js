@@ -6,7 +6,7 @@ export function Footer(){
       <div className={styles.page_wrapper}>
         <div className={styles.line}></div>
         <div className={styles.ctn}>
-          All of the resource are rightfully belong to Valve Corporation.
+          All of the data are rightfully belong to Valve Corporation and Steam Spy.
         </div>
         <div className={styles.line}></div>
       </div>

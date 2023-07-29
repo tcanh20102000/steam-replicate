@@ -72,8 +72,11 @@ export default function GenrePage(props){
     return (
       <CustomContext.Provider value={providerState}>
         {loading ? (
-          <div className={styles.page_content}>
-            <LoadingComponent size="4em" />
+          <div
+            className={`${styles.whole_page} ${styles.set_div_center}`}
+            style={{ backgroundColor: `#1b2838` }}
+          >
+            <LoadingComponent size="2em" />
           </div>
         ) : (
           <div className={styles.page_content}>

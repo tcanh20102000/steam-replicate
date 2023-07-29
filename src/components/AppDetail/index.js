@@ -263,8 +263,6 @@ export default function AppDetail(props){
         }
       }, [parentRef]);
 
-      
-
       function setMaxHeight(){
         parentRef.current.style.maxHeight = readMore ? "none" : "850px";
         setReadMore(prevState => !prevState);
@@ -272,7 +270,10 @@ export default function AppDetail(props){
       return (
         <>
           <h2>About this game</h2>
-          <div className={styles.about_the_game} ref={parentRef}>
+          <div 
+            className={ isOverflown && readMore ? 
+                        `${styles.about_the_game_overflow}`: 
+                        styles.about_the_game} ref={parentRef}>
             {htmlFrom(about_the_game)}
           </div>
           {isOverflown && (
@@ -309,6 +310,7 @@ export default function AppDetail(props){
           </div>
         );
       })
+
 
       let currentOS = valList[OSdigit];
       const { minimum } =
