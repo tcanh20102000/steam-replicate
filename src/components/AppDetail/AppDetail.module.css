@@ -407,19 +407,20 @@
 
     > div {
         flex: 1;
-        font-size: 0.75em;
+        font-size: 0.75rem;
+        margin-right: 0.25rem;
         >strong{
             font-weight: normal;
-            font-size: 0.8em;
+            font-size: 0.8rem;
             text-transform: uppercase;
         }
         > ul{
             list-style-type: none;
-            margin: 0.5em 0 0 0;
+            margin: 0.5rem 0 0 0;
             padding: 0;
         }
         > ul > li{
-            font-size: 0.75em;
+            font-size: 0.75rem;
         }
         
         > ul > li > strong{
