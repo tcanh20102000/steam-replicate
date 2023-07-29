@@ -284,7 +284,17 @@
     position:relative;
     border-bottom: 1px solid #27394c;
 }
-.about_the_game:after {
+
+.about_the_game_overflow{
+    color: #969696;
+    max-height: 850px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    content: "";
+    position:relative;
+    border-bottom: 1px solid #27394c;
+}
+.about_the_game_overflow:after {
     content: "";
     width: 100%;
     height: 100%;    
@@ -293,6 +303,7 @@
     top: 0;
     background:linear-gradient(transparent 96%, black);
 }
+
 .show_more_less{
     height: 2rem;
     line-height: 2rem;
@@ -396,9 +407,10 @@
 
     > div {
         flex: 1;
+        font-size: 0.75em;
         >strong{
             font-weight: normal;
-            font-size: 0.75em;
+            font-size: 0.8em;
             text-transform: uppercase;
         }
         > ul{
