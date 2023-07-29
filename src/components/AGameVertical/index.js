@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from './AGameVertical.module.css';
 import axios from "axios";
 import { Constant } from "../../const/Const";
+import LoadingComponent from "../Loading";
 
 const TIMEOUT = Constant.TIMEOUT;
 const CallHostAPI = `${Constant.RootAPI}/get_app_detail`;
@@ -152,3 +153,5 @@ export default function AGameVertical(props) {
       </div>
     );
 }
+
+

@@ -1,4 +1,4 @@
 export const Constant = {
-  TIMEOUT: 10000,
+  TIMEOUT: 20000,
   RootAPI: "https://steam-proxy.vercel.app",
 };
